@@ -19,3 +19,12 @@ export let uploadFile = async (fileBuffer, folderPath) => {
     return {secure_url: result.secure_url, public_id: result.public_id}
 }
 
+
+export const deleteFile = async (publicId) => {
+  try {
+    const result = await v2.uploader.destroy(publicId, { resource_type: "image" });
+    return result; // { result: "ok" } yoki { result: "not found" }
+  } catch (err) {
+    throw new Error("Cloudinary delete error: " + err.message);
+  }
+};

@@ -60,34 +60,26 @@ const description = Joi.string().trim().min(20).required().messages({
   "any.required": "Car description is required"
 });
 
-const brand_image = Joi.string().uri().messages({
+const brand_image = Joi.string().uri().allow('').messages({
   "string.base": "Car brand image must be a string",
   "string.empty": "Car brand image cannot be empty",
   "string.uri": "Car brand image must be a valid URL",
   "any.required": "Car brand image is required"
 });
 
-const inner_image = Joi.string().uri().messages({
+const inner_image = Joi.string().uri().allow('').messages({
   "string.base": "Car inner image must be a string",
   "string.empty": "Car inner image cannot be empty",
   "string.uri": "Car inner image must be a valid URL",
   "any.required": "Car inner image is required"
 });
 
-const outer_image = Joi.string().uri().messages({
+const outer_image = Joi.string().uri().allow('').messages({
   "string.base": "Car outer image must be a string",
   "string.empty": "Car outer image cannot be empty",
   "string.uri": "Car outer image must be a valid URL",
   "any.required": "Car outer image is required"
 });
-
-const public_id = Joi.string().uri().messages({
-  "string.base": "public_id  must be a string",
-  "string.empty": "public_id  cannot be empty",
-  "string.uri": "public_id  must be a valid URL",
-  "any.required": "public_id  is required"
-});
-
 
 
 let carSchema = Joi.object({
@@ -103,8 +95,7 @@ let carSchema = Joi.object({
   description,
   brand_image,
   inner_image,
-  outer_image,
-  public_id
+  outer_image
 });
 
 const createCarSchema = (data) => {
@@ -123,7 +114,6 @@ const createCarSchema = (data) => {
   if ("brand_image" in data) schemaFields.brand_image = brand_image;
   if ("inner_image" in data) schemaFields.inner_image = inner_image;
   if ("outer_image" in data) schemaFields.outer_image = outer_image;
-  if ("public_id" in data) schemaFields.public_id = public_id;
 
   return Joi.object(schemaFields);
 };
