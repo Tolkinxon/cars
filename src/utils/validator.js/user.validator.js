@@ -1,5 +1,7 @@
 import Joi  from 'joi';
 
+const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 const first_name = Joi.string().trim().required().messages({
     "string.base": "First name must be a string",
     "string.empty": "First name cannot be empty", 
@@ -19,10 +21,11 @@ const phone = Joi.string().trim().pattern(/^\+9989[012345789][0-9]{7}$/).require
   "any.required": "Phone number is required"
 });
 
-const email = Joi.string().trim().email().required().messages({
+const email = Joi.string().trim().pattern(emailPattern).email().required().messages({
     "string.base": "Email must be a string", 
     "string.empty": "Email cannot be empty",
     "string.email": "Email must be a valid email", 
+    "string.pattern.base": "Email is invalid",
     "any.required": "Email is required"
 });
 
