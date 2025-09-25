@@ -90,7 +90,7 @@ const public_id = Joi.string().uri().messages({
 
 
 
-let CarSchema = Joi.object({
+let carSchema = Joi.object({
   title,
   brand,
   price,
@@ -128,4 +128,4 @@ const createCarSchema = (data) => {
   return Joi.object(schemaFields);
 };
 
-export { createCarSchema, CarSchema };
+export { createCarSchema, carSchema };

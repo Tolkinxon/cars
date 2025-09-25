@@ -1,6 +1,7 @@
 import { ClientError, globalError } from "shokhijakhon-error-handler";
 import Category from "../model/Category.js";
 import { categorySchema } from "../utils/validator/category.validator.js";
+import { isValidObjectId } from "mongoose";
 
 export default {
     async GET_CATEGORIES(req, res){
@@ -22,16 +23,17 @@ export default {
             return globalError(err, res);
         }
     },
-    async SEARCH_CATEGORY(req, res){
-        try {
-            const searchValue = req.query?.name.trim();
-            if(!searchValue) throw new ClientError("Search value is empty", 400);
-            // const categories = await Category.find().where({name: new RegExp(searchValue, 'gi')});
-            // const categories = await Category.findByName(searchValue);
-            const categories = await Category.find().searchName(searchValue);
-            return res.json({categories});
-        } catch (error) {
+    async DELETE_CATEGORY(req, res){
+        try{
+            const id = req.params.id;
+            if(!isValidObjectId(id)) throw new ClientError('Category id is invalid', 400);
+            const findCategory = await Category.findById(id);
+            if(!findCategory) throw new ClientError('Category not found', 404);
+            await Category.findByIdAndDelete(id);
+            return res.json({message: "Category successfully deleted", status: 200});
+        }
+        catch(error){
             return globalError(error, res);
         }
-    }
+    },
 }

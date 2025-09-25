@@ -1,6 +1,9 @@
 import { ClientError, globalError } from "shokhijakhon-error-handler"
 import User from "../model/User.js";
 import { isValidObjectId } from 'mongoose';
+import { createUserSchema } from "../utils/validator/user.validator.js";
+import hash from "./../lib/hash.js";
+
 
 export default {
     async GET_USER(req, res){
@@ -26,6 +29,14 @@ export default {
             const findUser = await User.findById(id);
             if(!findUser) throw new ClientError('User not found', 404);
             const userNewData = req.body;
+            if(!userNewData.password) delete userNewData.password
+            const validator = createUserSchema(userNewData);
+            const validate = await validator.validateAsync(userNewData, {abortEarly: false}); 
+            if(validate.error) throw new ClientError(validate.error.message, 400);
+            if(userNewData.password) {
+                let hashPassword = await hash.hashPassword(userNewData.password); 
+                userNewData.password = hashPassword
+            }
             await User.findByIdAndUpdate(id, userNewData)
             return res.json({message: "User successfully updated", status: 200});
         }

@@ -1,10 +1,10 @@
 import { ClientError, globalError } from "shokhijakhon-error-handler"
-import { changePasswordSchema, loginSchema, userSchema } from "../utils/validator.js/user.validator.js";
+import { changePasswordSchema, loginSchema, userSchema } from "../utils/validator/user.validator.js";
 import User from "../model/User.js";
 import  hash  from "./../lib/hash.js";
 import { generateOtp } from "../utils/otp.js";
 import emailService from "../lib/nodemailer.js";
-import { otpSchema, resendSchema } from "../utils/validator.js/otp.validator.js";
+import { otpSchema, resendSchema } from "../utils/validator/otp.validator.js";
 
 
 export default {

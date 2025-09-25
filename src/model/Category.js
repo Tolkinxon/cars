@@ -5,7 +5,7 @@ const categorySchema = new Schema({
         type: String,
         trim: true,
         required: [true, "Category name is required !"],
-        set: (val) => val.toLowerCase(),
+        set: (val) => val.toUpperCase(),
         validate: {
             validator(val) {
                 return val !== null && val !== ""
@@ -17,13 +17,5 @@ const categorySchema = new Schema({
     versionKey: false,
     timestamps: true
 });
-
-categorySchema.statics.findByName = function(val){
-    return this.find({name: new RegExp(val, 'gi')});
-};
-
-categorySchema.query.searchName = function(val){
-    return this.where({name: new RegExp(val, 'gi')});
-};
 
 export default model("category", categorySchema);
