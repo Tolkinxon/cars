@@ -95,14 +95,14 @@ export default {
                 if (!isValidObjectId(categoryId)) throw new ClientError('Category id is invalid', 400);
                 const checkCategory = await Category.findById(categoryId);
                 if (!checkCategory) throw new ClientError('Invalid object id', 400);
-                const CARs = await CAR.find({ period: categoryId }).populate('period').populate('author', { full_name: 1 });
-                return res.json(CARs)
+                const cars = await Car.find({ brand: categoryId }).populate('brand');
+                return res.json(cars)
             }
             const searchValue = req.query?.title?.trim();
             if (!searchValue) throw new ClientError("Search value is empty", 400);
-            // const CARs = await CAR.find({title: {$regex: searchValue, $options: 'i'}});
-            const CARs = await CAR.find({ $text: { $search: searchValue } }).populate('author', { full_name: 1 });;
-            return res.json(CARs);
+            const cars = await Car.find({title: {$regex: searchValue, $options: 'i'}});
+            // const cars = await Car.find({ $text: { $search: searchValue } }).populate('brand');;
+            return res.json(cars);
         } catch (error) {
             return globalError(error, res);
         }

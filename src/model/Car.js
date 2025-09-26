@@ -94,4 +94,4 @@ const bookSchema = new Schema(
 
 bookSchema.index({ title: 'text' });
 
-export default model('book', bookSchema);
+export default model('car', bookSchema);

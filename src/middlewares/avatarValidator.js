@@ -6,11 +6,13 @@ const {file:{avatar:{ formats, size }}} = serverConfig;
 
 const avatarValidator = (req, res, next) => {
     try {
-        let file = req.file;
-        if(!file) return next();
-        // const fileSIze = app.byte(file.size);
-        // if(fileSIze > size) throw new ClientError('Avatar size limit is 3mb', 413);
-        // if(!(formats.includes(file.mimetype))) throw new ClientError('Avatar format is invalid', 415);
+        let files = req.files;
+        if(!files) return next();
+        for(let file in files){
+            const fileSIze = app.byte(files[file][0].size);
+            if(fileSIze > size) throw new ClientError('Avatar size limit is 3mb', 413);
+            if(!(formats.includes(files[file][0].mimetype))) throw new ClientError('Avatar format is invalid', 415);
+        }
         return next();
     } catch (error) {
         return globalError(error, res);

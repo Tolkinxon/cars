@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import { serverConfig } from './config.js';
 import { mainRouter } from './routes/main.routes.js';
-const { PORT, dbName } = serverConfig;
+const { PORT, dbName, publicPath, viewPath } = serverConfig;
 
 const app = express();
 
@@ -14,6 +14,8 @@ app.use(cors({
 })); 
 
 app.use(express.json());
+app.use(express.static(publicPath()));
+app.use(express.static(viewPath()));
 app.use(cookieParser());
 app.use('/api', mainRouter)
 

@@ -5,6 +5,7 @@ import  hash  from "./../lib/hash.js";
 import { generateOtp } from "../utils/otp.js";
 import emailService from "../lib/nodemailer.js";
 import { otpSchema, resendSchema } from "../utils/validator/otp.validator.js";
+import { tokenService } from "../lib/tokenService.js";
 
 
 export default {
@@ -113,6 +114,23 @@ export default {
             return res.status(200).json({message: 'User successfully Logged in', status: 200, accessToken});
         }
         catch(error){
+            return globalError(error, res);
+        }
+    },
+    async REFRESH(req, res){
+        try {
+            const refreshToken = req.cookies.refreshToken;
+            if(!refreshToken) throw new ClientError('Refresh token not found!' , 400);
+            const parseRefreshToken = tokenService.verifyRefreshToken(refreshToken);
+            if(parseRefreshToken.userAgent !== req.headers['user-agent']) throw new ClientError('Invalid refresh token !', 400);
+            const findUser = await User.findById(parseRefreshToken.user_id);
+            if (!findUser) throw new ClientError('Invalid refresh token', 401);
+            req.user = findUser;
+            req.admin = parseRefreshToken.role == 'admin' ? true : false;
+            const payload = { user_id: findUser._id, role: findUser.role }
+            const accessToken = tokenService.createAccessToken(payload);
+            return res.json({message: 'Access token successfully generated', accessToken, status: 200});
+        } catch (error) {
             return globalError(error, res);
         }
     },
