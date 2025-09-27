@@ -1,12 +1,349 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Modellar turlari</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: white;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        img {
+            display: block;
+        }
+
+        .grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: white;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+            width: 300px;
+            height: 200px;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            max-height: 150px;
+            object-fit: contain;
+        }
+
+        .card h3 {
+            margin: 10px 0 5px;
+            font-size: 16px;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: block;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 20px;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-body {
+            display: flex;
+            gap: 20px;
+            text-align: left;
+        }
+
+        .left-column {
+            flex: 1;
+            padding: 10px;
+            background-color: #f6f6f6;
+            border-radius: 10px;
+        }
+
+        .left-column img {
+            width: 100%;
+            height: auto;
+        }
+
+        .left-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .left-column li {
+            margin-bottom: 10px;
+        }
+
+        .right-column {
+            flex: 2;
+            padding: 10px;
+        }
+
+        .right-column img {
+            width: 100%;
+            height: auto;
+        }
+
+        .view-options {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .description {
+            margin-top: 10px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .social-section {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .like-button {
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 20px;
+        }
+
+        .comment-input {
+            width: 80%;
+            padding: 10px;
+            margin-right: 10px;
+        }
+
+        .post-comment {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .comments-list {
+            margin-top: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .brand_image{
+            width: 100% !important;
+            height: 200px !important;
+            object-fit: contain;
+        }
+
+        .outer_image {
+            width: 100% !important;
+            height: 400px !important;
+            object-fit: contain;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>User page</h1>
+    <h1>Modellar turlari</h1>
+    <div class="grid-container js-car-list">
+    </div>
+
+    <template class="car-item-template">
+        <div class="card js-id-car" data-exterior="" data-interior="">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNUOu5kkYIXpcfVS97f1I42o9MnsCL2RrN_33gNdUYpUNKT9hwBe7Oko7lW_-TQ_Y7kKM&usqp=CAU"
+                alt="CHEVROLET TAHOE" class="img">
+            <h3><span class="brand"></span> : <span class="title"></span></h3>
+            <p><b>Narxi:</b> <span class="price"></span>$</p>
+        </div>
+    </template>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div class="modal-body">
+                <div class="left-column">
+                    <img class="brand_image" id="modalSmallImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNUOu5kkYIXpcfVS97f1I42o9MnsCL2RrN_33gNdUYpUNKT9hwBe7Oko7lW_-TQ_Y7kKM&usqp=CAU" alt="Car Exterior">
+                    <ul>
+                        <li><strong>Marka:</strong> CHEVROLET</li>
+                        <li><strong>Tanirivkasi:</strong> Yo'q</li>
+                        <li><strong>Motor:</strong> 1.6</li>
+                        <li><strong>Year:</strong> 2016</li>
+                        <li><strong>Color:</strong> Oq</li>
+                        <li><strong>Distance:</strong> 3000 km</li>
+                        <li><strong>Gearbook:</strong> Avtomat karobka</li>
+                        <li><strong>Description:</strong> Mishina ideal holatda krasska top toza 100tali. Ayol kishiniki judayam akurato haydalgan.</li>
+                    </ul>
+                    <p><strong>Umumiy xarajat:</strong> <span id="modalPrice"></span></p>
+                </div>
+                <div class="right-column">
+                    <img class="outer_image" id="mainModalImg" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNUOu5kkYIXpcfVS97f1I42o9MnsCL2RrN_33gNdUYpUNKT9hwBe7Oko7lW_-TQ_Y7kKM&usqp=CAU" alt="Car View">
+                    <div class="view-options">
+                        <input type="radio" id="exterior" name="view" value="exterior" onclick="changeImg()">
+                        <label for="exterior">Tashqi</label>
+                        <input type="radio" id="interior" name="view" value="interior" checked onclick="changeImg()">
+                        <label for="interior">Ichki</label>
+                    </div>
+                    <p class="description">Tasvir tanlangan konfiguratsiyaga mos kelmasligi mumkin. Mashinaning rangi ushbu saytda taqdim etilganidan farq qilishi mumkin.</p>
+                </div>
+            </div>
+            <div class="social-section">
+                <div>
+                    <button class="like-button"><span id="heard1" onclick="toggleLike()">🤍</span><span onclick="toggleLike()" id="heard2" style="display: none;">❤️</span></button>
+                    <input type="text" class="comment-input" id="commentText" placeholder="Izoh qoldiring...">
+                    <button class="" onclick="postComment()">📩📫</button>
+                </div>
+                <div class="comments-list" id="commentsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentExterior = '';
+        let currentInterior = '';
+        let likeCount = 0;
+        let liked = false;
+
+        function openModal(title, price, exteriorSrc, interiorSrc, smallImgSrc) {
+            var modal = document.getElementById("myModal");
+            var modalTitle = document.getElementById("modalTitle");
+            var modalPrice = document.getElementById("modalPrice");
+            var mainModalImg = document.getElementById("mainModalImg");
+            var modalSmallImg = document.getElementById("modalSmallImg");
+
+            currentExterior = exteriorSrc || '';
+            currentInterior = interiorSrc || '';
+
+            modal.style.display = "block";
+            modalTitle.textContent = title;
+            modalPrice.textContent = price;
+            modalSmallImg.src = smallImgSrc || '';
+            mainModalImg.src = currentInterior;
+            document.getElementById("interior").checked = true;
+
+            // Reset likes and comments for demo
+            likeCount = 0;
+            liked = false;
+            document.getElementById("likeCount").textContent = likeCount;
+            document.getElementById("commentsList").innerHTML = '';
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        function changeImg() {
+            const selected = document.querySelector('input[name="view"]:checked').value;
+            document.getElementById("mainModalImg").src = (selected === 'interior') ? currentInterior : currentExterior;
+        }
+
+        function toggleLike() {
+                heard1.style.display = liked ? 'none':'block'
+                heard2.style.display = liked ? 'block':'none'
+                liked = !liked;
+        }
+
+        function postComment() {
+            const commentText = document.getElementById("commentText").value;
+            if (commentText.trim() !== '') {
+                const commentDiv = document.createElement("div");
+                commentDiv.textContent = commentText;
+                document.getElementById("commentsList").appendChild(commentDiv);
+                document.getElementById("commentText").value = '';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            var modal = document.getElementById("myModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        // Example to attach click events (assuming js/main.js populates the cards)
+        // This can be moved to main.js if needed
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate populating one card for demo
+            const template = document.querySelector('.car-item-template');
+            const container = document.querySelector('.js-car-list');
+            const clone = template.content.cloneNode(true);
+            clone.querySelector('.brand').textContent = 'CHEVROLET';
+            clone.querySelector('.title').textContent = 'MALIBU';
+            clone.querySelector('.price').textContent = '329 900 000';
+            clone.querySelector('.card').dataset.exterior = 'https://example.com/exterior.jpg'; // User will set
+            clone.querySelector('.card').dataset.interior = 'https://example.com/interior.jpg'; // User will set
+            clone.querySelector('.img').src = 'https://example.com/small.jpg'; // User will set
+            container.appendChild(clone);
+
+            // Attach click listeners
+            document.querySelectorAll('.card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const title = `${card.querySelector('.brand').textContent} ${card.querySelector('.title').textContent}`;
+                    const price = card.querySelector('.price').textContent;
+                    const exteriorSrc = card.dataset.exterior;
+                    const interiorSrc = card.dataset.interior;
+                    const smallImgSrc = card.querySelector('.img').src;
+                    openModal(title, price, exteriorSrc, interiorSrc, smallImgSrc);
+                });
+            });
+        });
+    </script>
     <script src="js/main.js"></script>
 </body>
+
 </html>

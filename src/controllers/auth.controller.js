@@ -134,5 +134,21 @@ export default {
             return globalError(error, res);
         }
     },
-
+    async LOGOUT(req, res){
+        try {
+            const refreshToken = req.cookies.refreshToken;
+            if(!refreshToken) throw new ClientError('Token not found', 400);
+            const findUser = await User.findOne({"refreshTokens.token": refreshToken});
+            if(!findUser) {
+                res.clearCookie('refreshToken', {httpOnly: true, sameSite: "strict"});
+                return res.json({message: "User successfully logged out", status: 200})
+            };
+            findUser.refreshTokens = findUser.refreshTokens.filter((token) => token !== refreshToken);
+            await findUser.save();
+            res.clearCookie("refreshToken", { httpOnly: true, sameSite: "strict" });
+            return res.json({message: "User successfully logged out", status: 200})
+        } catch (error) {
+            return globalError(error, res);
+        }
+    }
 }

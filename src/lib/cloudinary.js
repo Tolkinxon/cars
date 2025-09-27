@@ -7,4 +7,4 @@ v2.config({
     cloud_name: process.env.CLOUD_NAME,
     api_secret: process.env.CLOUD_SECRET,
 });
-export let upload = multer({storage: multer.memoryStorage()})
+export let upload = multer({storage: multer.memoryStorage(), dest: "uploads/" })

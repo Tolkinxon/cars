@@ -53,10 +53,10 @@ const distance = Joi.number().min(3).required().messages({
   "any.required": "Car price is required"
 });
 
-const description = Joi.string().trim().min(20).required().messages({
+const description = Joi.string().trim().min(10).required().messages({
   "string.base": "Car description must be a string",
   "string.empty": "Car description cannot be empty",
-  "string.min": "Car description must be at least 20 characters long",
+  "string.min": "Car description must be at least 10 characters long",
   "any.required": "Car description is required"
 });
 
@@ -109,7 +109,7 @@ const createCarSchema = (data) => {
   if ("engine" in data) schemaFields.engine = engine;
   if ("year" in data) schemaFields.year = year;
   if ("color" in data) schemaFields.color = color;
-  if ("distance" in data) schemaFields.distance = period;
+  if ("distance" in data) schemaFields.distance = distance;
   if ("description" in data) schemaFields.description = description;
   if ("brand_image" in data) schemaFields.brand_image = brand_image;
   if ("inner_image" in data) schemaFields.inner_image = inner_image;

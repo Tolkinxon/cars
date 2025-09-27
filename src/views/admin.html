@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="uz">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -246,6 +245,21 @@
         opacity: 1;
       }
     }
+
+    .btn{
+      margin-top: 20px;
+      border: none;
+      cursor: pointer;
+      background-color: coral;
+      padding: 10px 40px;
+      color: #333;
+      border-radius:  10px;
+      font-weight: bold;
+    }
+    .delete-btn {
+      background-color: crimson;
+      color: white;
+    }
   </style>
 </head>
 
@@ -264,7 +278,7 @@
   <!-- Navbar -->
   <div class="navbar">
     <div class="left">
-      <button>Asosiyga qaytish</button>
+      <button class="logout" >Log out</button>
     </div>
     <div class="right">
       🔔
@@ -275,7 +289,7 @@
   <!-- Main -->
   <div class="main">
     <div class="card">
-      <h3>📂 Mashinalar</h3>
+      <h3 id="openUpdateModalBtn">📂 Mashinalar</h3>
       <div class="actions">
         <button>Kategoriya qo‘shish</button>
         <button id="openModalBtn">Mashina qo‘shish</button>
@@ -303,7 +317,7 @@
         <span>1</span>
         <span>2</span>
         <span>3</span>
-        <button>➡️</button>
+        <button >➡️</button>
       </div>
     </div>
   </div>
@@ -314,77 +328,170 @@
       <button class="close-btn" id="closeModalBtn">&times;</button>
       <h2>Mashina qo'shish</h2>
 
-      <form>
+      <form class="js-add-car-form">
         <div class="form-grid">
           <div class="form-group">
             <label>Markasi</label>
-            <select>
-              <option>CHEVROLET</option>
-              <option>BMW</option>
-              <option>MERCEDES</option>
+            <select name="brand">
+              <option value="68d547127efe58a4a47df6e0">CHEVROLET</option>
+              <option value="68d7a08becb5e65c9b682543">BMW</option>
+              <option value="68d7a094ecb5e65c9b682545">MERCEDES</option>
+              <option value="68d547067efe58a4a47df6de">KIA</option>
             </select>
           </div>
 
           <div class="form-group">
             <label>Tanirovkasi</label>
-            <select>
-              <option>Yo‘q</option>
-              <option>Bor</option>
+            <select name="tinting">
+              <option value='no'>Yo'q</option>
+              <option value='have'>Bor</option>
             </select>
           </div>
 
           <div class="form-group">
             <label>Motor</label>
-            <input type="text" placeholder="Kiritng">
+            <input type="text" placeholder="Kiritng" name="engine">
+          </div>
+
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" placeholder="Kiritng" name="title">
           </div>
 
           <div class="form-group">
             <label>Year</label>
-            <input type="number" placeholder="Kiritng">
+            <input type="number" placeholder="Kiritng" name="year">
           </div>
 
           <div class="form-group">
             <label>Color</label>
-            <input type="text" placeholder="Kiritng">
+            <input type="text" placeholder="Kiritng" name="color">
           </div>
 
           <div class="form-group">
             <label>Distance</label>
-            <input type="text" placeholder="Kiritng">
+            <input type="text" placeholder="Kiritng" name="distance">
           </div>
 
           <div class="form-group">
             <label>Gearbox</label>
-            <input type="text" placeholder="Kiritng">
+            <input type="text" placeholder="Kiritng" name="gearbook">
           </div>
 
           <div class="form-group">
             <label>Narxi</label>
-            <input type="text" placeholder="Kiritng">
+            <input type="text" placeholder="Kiritng" name="price">
           </div>
 
           <div class="form-group">
             <label>Rasm 360 ichki makon</label>
-            <input type="file">
+            <input type="file" name="inner_image">
           </div>
 
           <div class="form-group">
             <label>Rasm 360 tashqi makon</label>
-            <input type="file">
+            <input type="file" name="outer_image">
           </div>
 
           <div class="form-group">
             <label>Model turi uchun rasm</label>
-            <input type="file">
+            <input type="file" name="brand_image">
           </div>
 
           <div class="form-group" style="grid-column: span 2;">
             <label>Description</label>
-            <textarea rows="4" placeholder="Mazmuni kiriting"></textarea>
+            <textarea rows="4" placeholder="Mazmuni kiriting" name="description"></textarea>
           </div>
         </div>
 
         <button type="submit" class="save-btn">Saqlash</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalUpdateOverlay">
+    <div class="modal" id="modal">
+      <button class="close-btn" id="closeUpdateModalBtn">&times;</button>
+      <h2>Mashina qo'shish</h2>
+
+      <form class="js-update-car-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Markasi</label>
+            <select name="brand">
+              <option value="68d547127efe58a4a47df6e0">CHEVROLET</option>
+              <option value="68d7a08becb5e65c9b682543">BMW</option>
+              <option value="68d7a094ecb5e65c9b682545">MERCEDES</option>
+              <option value="68d547067efe58a4a47df6de">KIA</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Tanirovkasi</label>
+            <select name="tinting">
+              <option value='no'>Yo'q</option>
+              <option value='have'>Bor</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Motor</label>
+            <input type="text" placeholder="Kiritng" name="engine">
+          </div>
+
+          <div class="form-group">
+            <label>Title</label>
+            <input type="text" placeholder="Kiritng" name="title">
+          </div>
+
+          <div class="form-group">
+            <label>Year</label>
+            <input type="number" placeholder="Kiritng" name="year">
+          </div>
+
+          <div class="form-group">
+            <label>Color</label>
+            <input type="text" placeholder="Kiritng" name="color">
+          </div>
+
+          <div class="form-group">
+            <label>Distance</label>
+            <input type="text" placeholder="Kiritng" name="distance">
+          </div>
+
+          <div class="form-group">
+            <label>Gearbox</label>
+            <input type="text" placeholder="Kiritng" name="gearbook">
+          </div>
+
+          <div class="form-group">
+            <label>Narxi</label>
+            <input type="text" placeholder="Kiritng" name="price">
+          </div>
+
+          <div class="form-group">
+            <label>Rasm 360 ichki makon</label>
+            <input type="file" name="inner_image">
+          </div>
+
+          <div class="form-group">
+            <label>Rasm 360 tashqi makon</label>
+            <input type="file" name="outer_image">
+          </div>
+
+          <div class="form-group">
+            <label>Model turi uchun rasm</label>
+            <input type="file" name="brand_image">
+          </div>
+
+          <div class="form-group" style="grid-column: span 2;">
+            <label>Description</label>
+            <textarea rows="4" placeholder="Mazmuni kiriting" name="description"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="update-btn btn">Yangilash</button>
+        <button type="submit" class="delete-btn btn">O'chirish</button>
       </form>
     </div>
   </div>
@@ -398,7 +505,7 @@
       <td class="year">2016</td>
       <td class="color">Oq</td>
       <td class="distance">3000km</td>
-      <td>➡️</td>
+      <td class="js-id-car" style="cursor: pointer;">➡️</td>
     </tr>
   </template>
 
@@ -406,6 +513,10 @@
     const openModalBtn = document.getElementById("openModalBtn");
     const closeModalBtn = document.getElementById("closeModalBtn");
     const modalOverlay = document.getElementById("modalOverlay");
+    
+    const openUpdateModalBtn = document.getElementById("openUpdateModalBtn");
+    const modalUpdateOverlay = document.getElementById("modalUpdateOverlay");
+    const closeUpdateModalBtn = document.getElementById("closeUpdateModalBtn");
 
     openModalBtn.addEventListener("click", () => {
       modalOverlay.style.display = "flex";
@@ -420,6 +531,23 @@
         modalOverlay.style.display = "none";
       }
     });
+
+
+
+    openUpdateModalBtn.addEventListener("click", () => {
+      modalUpdateOverlay.style.display = "flex";
+    });
+
+    closeUpdateModalBtn.addEventListener("click", () => {
+      modalUpdateOverlay.style.display = "none";
+    });
+    modalUpdateOverlay.addEventListener("click", (e) => {
+      if (e.target === modalUpdateOverlay) {
+        modalUpdateOverlay.style.display = "none";
+      }
+    });
+
+
   </script>
   <script src="js/admin.js"></script>
 </body>

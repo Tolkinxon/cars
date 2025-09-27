@@ -10,4 +10,4 @@ export const mainRouter = Router();
 mainRouter.use('/auth', authRouter);
 mainRouter.use('/category', categoryRouter);
 mainRouter.use('/user', userRouter);
-mainRouter.use('/car', checkToken, carRouter);
+mainRouter.use('/car', carRouter);

@@ -4,6 +4,7 @@ import { carSchema, createCarSchema } from "../utils/validator/car.validator.js"
 import Category from "../model/Category.js";
 import { cloudinaryFolderPath, deleteFile, uploadFile } from "../utils/fileUpload.js";
 import Car from "../model/Car.js";
+import mongoose from "mongoose";
 
 export default {
     async GET_CAR(req, res) {
@@ -24,7 +25,9 @@ export default {
     },
     async CREATE_CAR(req, res) {
         try {
-            const newCar = req.body;
+            let newCar = req.body;
+            // newCar.brand = new mongoose.Types.ObjectId(req.body.brand);
+            newCar.tinting = newCar.tinting == 'no' ? newCar.tinting = false : newCar.tinting = true;
             const validate = await carSchema.validateAsync(newCar, { abortEarly: false });
             if (validate.error) throw new ClientError(validate.error.message, 400);
             if (req.files) {
@@ -42,11 +45,14 @@ export default {
     },
     async UPDATE_CAR(req, res) {
         try {
-            const id = req.params.id;
+            let id = req.params.id;
             if (!isValidObjectId(id)) throw new ClientError('Car id is invalid', 400);
             const findCar = await Car.findById(id);
-            if (!findCar) throw new ClientError('CAR not found', 404);
-            const carNewData = req.body;
+            if (!findCar) throw new ClientError('Car not found', 404);
+            let carNewData = req.body;
+            console.log(carNewData);
+            
+            if(carNewData.tinting) carNewData.tinting = carNewData.tinting == 'no' ? carNewData.tinting = false : carNewData.tinting = true;
             const validator = createCarSchema(carNewData);
             const validate = await validator.validateAsync(carNewData, { abortEarly: false });
             if (validate.error) throw new ClientError(validate.error.message, 400);
@@ -57,7 +63,9 @@ export default {
             }
             if (req.files) {
                 for (let key in req.files) {
-                    await deleteFile(findCar[key].public_id);
+                    if(findCar[key].public_id){
+                        await deleteFile(findCar[key].public_id);
+                    }
                     const data = await uploadFile(req.files[key][0].buffer, cloudinaryFolderPath.books);
                     carNewData[key] = data
                 }

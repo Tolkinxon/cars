@@ -13,11 +13,12 @@ app.use(cors({
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
 })); 
-
+app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(express.static(publicPath()));
 app.use(express.static(viewPath()));
 app.use(cookieParser());
+
 app.use('/api', mainRouter)
 
 
