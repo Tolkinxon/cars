@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="uz">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +21,7 @@
       width: 220px;
       background: #fff;
       padding: 20px 0;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -61,7 +62,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     }
 
     .navbar .left button {
@@ -96,7 +97,7 @@
       background: #fff;
       border-radius: 8px;
       padding: 20px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     }
 
     .card h3 {
@@ -128,7 +129,8 @@
       border-collapse: collapse;
     }
 
-    th, td {
+    th,
+    td {
       padding: 12px;
       border-bottom: 1px solid #eee;
       text-align: left;
@@ -164,7 +166,7 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.5);
       justify-content: center;
       align-items: center;
       z-index: 999;
@@ -176,7 +178,7 @@
       width: 80%;
       max-width: 800px;
       padding: 24px;
-      box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
       position: relative;
       animation: fadeIn 0.3s ease;
     }
@@ -234,11 +236,19 @@
     }
 
     @keyframes fadeIn {
-      from { transform: scale(0.9); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
   </style>
 </head>
+
 <body>
 
   <!-- Sidebar -->
@@ -284,18 +294,8 @@
             <th></th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1.</td>
-            <td>CHEVROLET</td>
-            <td>Avtomat karobka</td>
-            <td>Yoq</td>
-            <td>1.6</td>
-            <td>2016</td>
-            <td>Oq</td>
-            <td>3000km</td>
-            <td>➡️</td>
-          </tr>
+        <tbody class="js-car-list">
+
         </tbody>
       </table>
       <div class="pagination">
@@ -388,6 +388,19 @@
       </form>
     </div>
   </div>
+  <template class="car-tr-template">
+    <tr>
+      <td>1.</td>
+      <td class="brand">CHEVROLET</td>
+      <td class="gearbook">Avtomat karobka</td>
+      <td class="tinting">Yoq</td>
+      <td class="engine">1.6</td>
+      <td class="year">2016</td>
+      <td class="color">Oq</td>
+      <td class="distance">3000km</td>
+      <td>➡️</td>
+    </tr>
+  </template>
 
   <script>
     const openModalBtn = document.getElementById("openModalBtn");
@@ -408,5 +421,7 @@
       }
     });
   </script>
+  <script src="js/admin.js"></script>
 </body>
+
 </html>

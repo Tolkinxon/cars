@@ -1,13 +1,14 @@
 import { ClientError, globalError } from "shokhijakhon-error-handler";
 import {tokenService} from"../lib/tokenService.js";
 import User from "../model/User.js";
-const { verifyToken } = tokenService;
+import { isValidObjectId } from "mongoose";
+const { verifyAccessToken } = tokenService;
 
  async function checkToken(req, res, next){
     try {
         const token = req.headers.token;
         if(!token) throw new ClientError('Unauthorized!', 401);
-        const verifiyToken = verifyToken(token);
+        const verifiyToken = verifyAccessToken(token);
         if(!isValidObjectId(verifiyToken.user_id)) throw new ClientError('User id is invalid', 400);
         const user = await User.findById(verifiyToken.user_id);
         if(!user) throw new ClientError('Invalid token!', 401);

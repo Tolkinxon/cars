@@ -3,8 +3,8 @@ const  { sign, verify } = pkg;
 
 
 export const tokenService = {
-    createAccessToken: (payload) => sign(payload,  process.env.TOKEN_KEY, {expiresIn: '1d'}),
-    verifyAccessToken: (token) => verify(token, process.env.TOKEN_KEY),
+    createAccessToken: (payload) => sign(payload,  process.env.ACCESS_TOKEN_KEY, {expiresIn: '30s'}),
+    verifyAccessToken: (token) => verify(token, process.env.ACCESS_TOKEN_KEY),
     createRefreshToken: (payload) => sign(payload, process.env.REFRESH_TOKEN_KEY, {expiresIn: '30d'}),
     verifyRefreshToken: (token) => verify(token, process.env.REFRESH_TOKEN_KEY)
 }

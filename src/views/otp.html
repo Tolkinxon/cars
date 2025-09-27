@@ -4,95 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OTP Verification</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #9f7aea, #ed64a6, #f56565);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
-
-    .container {
-      background: #fff;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-      border-radius: 12px;
-      padding: 30px;
-      max-width: 400px;
-      width: 100%;
-      text-align: center;
-    }
-
-    h2 {
-      font-size: 24px;
-      font-weight: bold;
-      color: #2d3748;
-      margin-bottom: 15px;
-    }
-
-    p {
-      color: #4a5568;
-      margin-bottom: 20px;
-    }
-
-    .otp-inputs {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .otp-inputs input {
-      width: 50px;
-      height: 50px;
-      border: 1px solid #cbd5e0;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 20px;
-      font-weight: bold;
-      outline: none;
-      transition: border 0.2s, box-shadow 0.2s;
-    }
-
-    .otp-inputs input:focus {
-      border-color: #805ad5;
-      box-shadow: 0 0 0 2px rgba(128, 90, 213, 0.3);
-    }
-
-    button {
-      width: 100%;
-      background: #805ad5;
-      color: #fff;
-      padding: 12px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    button:hover {
-      background: #6b46c1;
-    }
-
-    .resend {
-      margin-top: 20px;
-      color: #4a5568;
-    }
-
-    .resend a {
-      color: #805ad5;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .resend a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  <link rel="stylesheet" href="css/otp.css">
 </head>
 <body>
   <div class="container">
@@ -110,33 +22,9 @@
       <button type="submit">Verify OTP</button>
     </form>
     <p class="resend">
-      Didn’t receive the code? <a href="#">Resend OTP</a>
+      Didn’t receive the code? <a href="#" class="js-resend">Resend OTP</a>
     </p>
   </div>
-
-  <script>
-    const inputs = document.querySelectorAll(".otp-inputs input");
-
-    inputs.forEach((input, index) => {
-      input.addEventListener("input", () => {
-        if (input.value && index < inputs.length - 1) {
-          inputs[index + 1].focus();
-        }
-      });
-
-      input.addEventListener("keydown", (e) => {
-        if (e.key === "Backspace" && !input.value && index > 0) {
-          inputs[index - 1].focus();
-        }
-      });
-    });
-
-    document.getElementById("otpForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      let otp = "";
-      inputs.forEach(input => otp += input.value);
-      alert("Entered OTP: " + otp);
-    });
-  </script>
+  <script src="js/otp.js"></script>
 </body>
 </html>

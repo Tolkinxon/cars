@@ -111,7 +111,7 @@ export default {
                 secure:  process.env.NODE_ENV == 'production' ?  true : false,
                 maxAge: 30 * 24 * 60 * 60 * 1000
             })
-            return res.status(200).json({message: 'User successfully Logged in', status: 200, accessToken});
+            return res.status(200).json({message: 'User successfully Logged in', status: 200, accessToken, role: findUser.role});
         }
         catch(error){
             return globalError(error, res);
@@ -129,7 +129,7 @@ export default {
             req.admin = parseRefreshToken.role == 'admin' ? true : false;
             const payload = { user_id: findUser._id, role: findUser.role }
             const accessToken = tokenService.createAccessToken(payload);
-            return res.json({message: 'Access token successfully generated', accessToken, status: 200});
+            return res.json({message: 'Access token successfully generated', accessToken, status: 200, role: findUser.role});
         } catch (error) {
             return globalError(error, res);
         }
