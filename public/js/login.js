@@ -13,7 +13,7 @@ async function login(data) {
     if(req.ok) {
         alert(res.message)
         window.localStorage.setItem("token", res.accessToken);
-        if(res.role == "admin") return window.location = '/admin.html'
+        if(res.role == "admin") return window.location = '/firstAdmin.html'
         return window.location = '/main.html'
     }
     alert(res.message);

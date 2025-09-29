@@ -196,7 +196,7 @@
             display: none;
         }
 
-        .logout{
+        .logout, .admin{
             position: absolute;
             top: 20px;
             right: 20px;
@@ -207,11 +207,17 @@
             color: white;
             cursor: pointer;
         }
+
+        .admin{
+            background-color: #2a85ff;
+            right: 120px;
+        }
     </style>
 </head>
 
 <body>
     <button class="logout" title="Logout qilsangiz yana login qilib kiras">Log out</button>
+    <button class="admin" title="Logout qilsangiz yana login qilib kiras">Adminga o'tish</button>
     <h1>Modellar turlari</h1>
     <div class="grid-container js-car-list">
     </div>
@@ -257,7 +263,7 @@
                     <p class="description">Tasvir tanlangan konfiguratsiyaga mos kelmasligi mumkin. Mashinaning rangi ushbu saytda taqdim etilganidan farq qilishi mumkin.</p>
                 </div>
             </div>
-            <div class="social-section">
+            <div class="social-section" style="display: none;">
                 <div>
                     <button class="like-button"><span id="heard1" >🤍</span><span  id="heard2" style="display: none;">❤️</span></button>
                     <input type="text" class="comment-input" id="commentText" placeholder="Izoh qoldiring...">

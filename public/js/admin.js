@@ -5,6 +5,7 @@ const elCarList = document.querySelector('.js-car-list');
 const elForm = document.querySelector('.js-add-car-form');
 const elUpdateForm = document.querySelector('.js-update-car-form');
 const elLogout = document.querySelector('.logout');
+const elMainAdmin = document.querySelector('.mainAdmin');
 
 async function getAccessToken(err) {
     if (err.code == 'TOKEN_EXPIRED') {
@@ -162,5 +163,9 @@ elUpdateForm.addEventListener('submit', async (evt) => {
 
 elLogout.addEventListener('click', ()=> {
     logout();
+})
+
+elMainAdmin.addEventListener('click', ()=>{
+    window.location = '/firstAdmin.html'
 })
 
